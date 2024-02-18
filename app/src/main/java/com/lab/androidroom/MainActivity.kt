@@ -1,5 +1,6 @@
 package com.lab.androidroom
 
+import android.content.ContentValues
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.lab.androidroom.FeedReaderContract.FeedEntry
 import com.lab.androidroom.ui.theme.AndroidRoomLabTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,6 +28,20 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
+        // Initialize DBHelper instance
+        val dbHelper = DBHelper(this)
+        // Gets the data repository in write mode
+        val db = dbHelper.writableDatabase
+
+        // Create a new map of values, where column names are the keys
+        val values = ContentValues().apply {
+            put(FeedEntry.COLUMN_NAME_TITLE, "title")
+            put(FeedEntry.COLUMN_NAME_SUBTITLE, "subtitle")
+        }
+
+        // Insert the new row, returning the primary key value of the new row
+        val newRowId = db?.insert(FeedEntry.TABLE_NAME, null, values)
     }
 }
 
