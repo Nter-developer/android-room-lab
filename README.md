@@ -11,8 +11,11 @@
 ## 스터디 방법
 
 1. 매주 새로운 주제를 정하고 해당 주제에 대한 이론 공부를 진행합니다.
-2. 이론을 바탕으로 간단한 코딩 실습을 진행합니다.
-3. 코드 실습을 통해 얻은 경험과 이해를 바탕으로 프로젝트에 Room 라이브러리를 적용합니다.
+2. 이론을 바탕으로 주제에 대한 실습을 클론 코딩, 백지 코딩, 변형 코딩 순으로 진행합니다.
+3. `topic/주제명` 브랜치에서 순서대로 클론 코딩, 백지 코딩, 변형 코딩 브랜치를 생성, Pull Requset를 반복합니다.
+4. 가급적 공식 문서에 의존하여 클론 코등일 작성합니다. 이때 Pull Request의 라벨은 `clone coding`입니다.
+5. 클론 코딩한 내용을 기억에 의존하여 처음부터 다시 작성합니다. 이때 Pull Request의 라벨은 `black review`입니다.
+6. 코드 실습을 통해 얻은 경험과 이해를 바탕으로 기능을 변형하여 작성합니다. 이때 Pull Request의 라벨은 `practice`입니다.
 
 ## 스터디 일정
 
@@ -28,16 +31,23 @@
   - `refactor: 코드 리팩토링`
   - `test: 테스트 코드 추가/수정`
   - `chore: 빌드 및 설정 파일 업데이트`
+- 토픽의 종류는 sqlite와 room 두가지가 있습니다.
+- 생성된 `topic/주제명` 브랜치에서 `topci/주제명/#이슈번호` 브랜치를 생성해서 작업이 끝나면 `topic/주제명` 브랜치에 Pull Request합니다.
 
-예시: `topic/populate-the-database`
+예시: `sqlite/create-the-database` `room/create-the-database`
 예시: `git commit -m "feat: Implement data access object for user entity"`
 
 ## Pull Request 규칙
 
 - Pull Request를 생성하기 전에 코드를 리뷰하고 자신이 작업한 내용에 대해 확인합니다.
 - Pull Request 제목은 간결하고 명확하게 작성하고, 본문에 변경 사항을 자세히 기록합니다.
+- Pull Request의 title은 영어와 한글 상관 없이 작성합니다.
+- Pull Request의 title의 영어는 맨 앞 자리 혹은 약자를 제외하고는 모두 소문자로 작성합니다.
 - 다른 사람이 리뷰할 수 있도록 코드 변경 내용을 명확히 설명합니다.
 - 만약 이슈가 있으면 해당 이슈 번호를 제목에 추가합니다.
+- 학습 내용과 리뷰는 `clone coding`과 `blank review`이 아닌 `practice` 이슈와 pull request에 작성합니다.
+
+예시: `[blank review]: Implement create database feauture using room`
 
 ## 개발 환경
 ```
