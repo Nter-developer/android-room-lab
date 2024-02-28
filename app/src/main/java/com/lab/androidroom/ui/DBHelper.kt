@@ -16,6 +16,14 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         onCreate(db)
     }
 
+    private fun createEntries(db: SQLiteDatabase) {
+        onCreate(db)
+    }
+
+    private fun deleteEntries(db: SQLiteDatabase) {
+        db.execSQL(SQL_DELETE_ENTRIES)
+    }
+
     companion object {
         const val DATABASE_NAME = "feedReader.db"
         const val DATABASE_VERSION = 1
