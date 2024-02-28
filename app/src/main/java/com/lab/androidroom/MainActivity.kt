@@ -1,6 +1,5 @@
 package com.lab.androidroom
 
-import android.content.ContentValues
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -27,12 +26,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-
-        val dbheler = DBHelper(this)
-        // Create entries sample code
-        dbheler.createEntries(dbheler.writableDatabase)
-        // Delete entries sample code
-        // dbheler.deleteEntries(dbheler.writableDatabase)
     }
 }
 
