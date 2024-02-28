@@ -27,6 +27,12 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
+        val dbheler = DBHelper(this)
+        // Create entries sample code
+        dbheler.createEntries(dbheler.writableDatabase)
+        // Delete entries sample code
+        // dbheler.deleteEntries(dbheler.writableDatabase)
     }
 }
 

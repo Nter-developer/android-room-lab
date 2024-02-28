@@ -1,4 +1,4 @@
-package com.lab.androidroom.ui
+package com.lab.androidroom
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -16,11 +16,11 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         onCreate(db)
     }
 
-    private fun createEntries(db: SQLiteDatabase) {
+    public fun createEntries(db: SQLiteDatabase) {
         onCreate(db)
     }
 
-    private fun deleteEntries(db: SQLiteDatabase) {
+    public fun deleteEntries(db: SQLiteDatabase) {
         db.execSQL(SQL_DELETE_ENTRIES)
     }
 
