@@ -41,13 +41,12 @@
 
 - Pull Request를 생성하기 전에 코드를 리뷰하고 자신이 작업한 내용에 대해 확인합니다.
 - Pull Request 제목은 간결하고 명확하게 작성하고, 본문에 변경 사항을 자세히 기록합니다.
-- Pull Request의 title은 영어와 한글 상관 없이 작성합니다.
-- Pull Request의 title의 영어는 맨 앞 자리 혹은 약자를 제외하고는 모두 소문자로 작성합니다.
-- 다른 사람이 리뷰할 수 있도록 코드 변경 내용을 명확히 설명합니다.
+- Pull Request의 제목은 영어와 한글 상관 없이 작성합니다.
+- Pull Request의 제목의 영단어는 모두 대문자로 시작하도록 합니다.
 - 만약 이슈가 있으면 해당 이슈 번호를 제목에 추가합니다.
 - 학습 내용과 리뷰는 `clone coding`과 `blank review`이 아닌 `practice` 이슈와 pull request에 작성합니다.
 
-예시: `[blank review]: Implement create database feauture using room`
+예시: `[blank review]: SQLite API를 사용한 Database 생성 기능을 구현한다`
 
 ## 개발 환경
 ```
