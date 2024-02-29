@@ -3,36 +3,31 @@ package com.lab.androidroom
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.provider.BaseColumns
-import com.lab.androidroom.FeedReaderContract.FeedEntry
+import android.util.Log
 
-class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DBHelper(context: Context) :
+    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL(SQL_CREATE_ENTRIES)
+
     }
 
-    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        db.execSQL(SQL_DELETE_ENTRIES)
-        onCreate(db)
+    override fun onUpgrade(db: SQLiteDatabase, newVersion: Int, oldVersion: Int) {
+
     }
 
-    public fun createEntries(db: SQLiteDatabase) {
-        onCreate(db)
+    internal fun execQuery(db: SQLiteDatabase, sql: String) {
+        try {
+            db.execSQL(sql)
+            Log.i(TAG, "SUCCESS")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error inserting: ${e.message}")
+        }
     }
 
-    public fun deleteEntries(db: SQLiteDatabase) {
-        db.execSQL(SQL_DELETE_ENTRIES)
-    }
 
     companion object {
-        const val DATABASE_NAME = "feedReader.db"
         const val DATABASE_VERSION = 1
-        private const val SQL_CREATE_ENTRIES =
-            "CREATE TABLE ${FeedEntry.TABLE_NAME} (" +
-                    "${BaseColumns._ID} INTEGER PRIMARY KEY," +
-                    "${FeedEntry.COLUMN_NAME_TITLE} TEXT," +
-                    "${FeedEntry.COLUMN_NAME_SUBTITLE} TEXT)"
-        private const val SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS ${FeedEntry.TABLE_NAME}"
+        const val DATABASE_NAME = "practice.db"
+        private const val TAG = "DB_Helper"
     }
 }

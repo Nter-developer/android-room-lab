@@ -1,7 +1,7 @@
 package com.lab.androidroom
 
-import android.content.ContentValues
 import android.os.Bundle
+import android.provider.BaseColumns
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,11 +28,23 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        val dbheler = DBHelper(this)
-        // Create entries sample code
-        dbheler.createEntries(dbheler.writableDatabase)
-        // Delete entries sample code
-        // dbheler.deleteEntries(dbheler.writableDatabase)
+        run()
+    }
+
+    private fun run() {
+        val dbHelper = DBHelper(this)
+
+        dbHelper.execQuery(
+            dbHelper.writableDatabase,
+            "DROP TABLE IF EXISTS NAME"
+        )
+        dbHelper.execQuery(
+            dbHelper.writableDatabase,
+            "CREATE TABLE NAME (${BaseColumns._ID} INTEGER PRIMARY KEY, " +
+                    "TITLE TEXT, SUBTITLE TEXT)"
+        )
+
+        dbHelper.writableDatabase.close()
     }
 }
 
