@@ -34,14 +34,16 @@ class MainActivity : ComponentActivity() {
         }
 
         val databaseHelper = DatabaseHelper(this)
-        databaseHelper.execRawQuery(CREATE_QUERY)
-        databaseHelper.execSelectQuery(SELECT_QUERY)
+        databaseHelper.execRawQuery(SAMPLE_QUERY_CREATE)
+        databaseHelper.execRawQuery(SAMPLE_QUERY_INSERT)
+        databaseHelper.execSelectQuery(SAMPLE_QUERY_SELECT)
     }
 
     companion object {
-        private const val CREATE_QUERY = "CREATE TABLE TEST (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "NAME TEXT, PHONE_NUM TEXT)"
-        private const val SELECT_QUERY = "SELECT * FROM NAME"
+        private const val SAMPLE_QUERY_CREATE =
+            "CREATE TABLE SAMPLE (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, LAST_NAME TEXT)"
+        private const val SAMPLE_QUERY_INSERT = "INSERT INTO SAMPLE (NAME, LAST_NAME) VALUES ('James', 'King')"
+        private const val SAMPLE_QUERY_SELECT = "SELECT * FROM SAMPLE"
     }
 }
 

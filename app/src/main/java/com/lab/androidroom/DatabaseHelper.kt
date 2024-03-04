@@ -4,41 +4,38 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.provider.BaseColumns
 import android.util.Log
 
 class DatabaseHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
-
-    override fun onCreate(db: SQLiteDatabase?) {
-
+    override fun onCreate(p0: SQLiteDatabase?) {
+        // Not yet implemented
     }
 
-    override fun onUpgrade(db: SQLiteDatabase?, newVersion: Int, oldVersion: Int) {
-
+    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
+        // Not yet implemented
     }
 
-    fun execSelectQuery(sql: String) {
-        val database = this.writableDatabase
+    // Execute query except SELECT statement
+    fun execRawQuery(sql: String) {
+        val db = this.writableDatabase
         try {
-            val cursor: Cursor? = database.rawQuery(sql, null)
-            printCursor(cursor)
-            cursor?.close()
+            db.execSQL(sql)
         } catch (e: Exception) {
-            Log.e(TAG, "ERROR: ${e.message}")
-        } finally {
-            database.close()
+            Log.e(TAG, "${e.message}")
         }
     }
 
-    fun execRawQuery(sql: String) {
-        val database = this.writableDatabase
+    // Execute only SELECT statement
+    fun execSelectQuery(sql: String) {
+        val db = this.readableDatabase
         try {
-            database.execSQL(sql, null)
-
+            val cursor:Cursor? = db.rawQuery(sql, null)
+            printCursor(cursor)
+            cursor?.close()
         } catch (e: Exception) {
-            Log.e(TAG, "ERROR: ${e.message}")
-        } finally {
-            database.close()
+            Log.e(TAG, "${e.message}")
         }
     }
 
@@ -49,20 +46,20 @@ class DatabaseHelper(context: Context) :
                 do {
                     for (i in 0 until columnCount) {
                         val columnName = cursor.getColumnName(i)
-                        val columnValue = cursor.getString(i)
-                        Log.d(TAG, "$columnName: $columnValue")
+                        val columnsValue = cursor.getString(i)
+                        Log.d(TAG, "$columnName: $columnsValue")
                     }
                 } while (moveToNext())
             } else {
-                Log.d(TAG, "Cursor is empty.")
+                Log.d(TAG, "Cursor is empty")
             }
             close()
         }
     }
 
     companion object {
-        const val DATABASE_NAME = "practice.db"
-        const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 1
+        private const val DATABASE_NAME = "sample.db"
 
         private const val TAG = "DB_HELPER"
     }
