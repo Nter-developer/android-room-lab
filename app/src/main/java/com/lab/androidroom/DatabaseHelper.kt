@@ -10,14 +10,7 @@ import android.util.Log
 class DatabaseHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     override fun onCreate(p0: SQLiteDatabase?) {
-        val db = this.writableDatabase
-        try {
-            db.execSQL(SAMPLE_QUERY_CREATE)
-        } catch (e: Exception) {
-            Log.e(TAG, "${e.message}")
-        } finally {
-            db.close()
-        }
+        // Not yet implemented
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
@@ -25,28 +18,24 @@ class DatabaseHelper(context: Context) :
     }
 
     // Execute query except SELECT statement
-    fun execSelectQuery(sql: String) {
+    fun execRawQuery(sql: String) {
         val db = this.writableDatabase
         try {
             db.execSQL(sql)
         } catch (e: Exception) {
             Log.e(TAG, "${e.message}")
-        } finally {
-            db.close()
         }
     }
 
     // Execute only SELECT statement
-    fun execRawQuery(sql: String) {
-        val db = this.writableDatabase
+    fun execSelectQuery(sql: String) {
+        val db = this.readableDatabase
         try {
-            val cursor = db.rawQuery(sql, null)
+            val cursor:Cursor? = db.rawQuery(sql, null)
             printCursor(cursor)
-            cursor.close()
+            cursor?.close()
         } catch (e: Exception) {
             Log.e(TAG, "${e.message}")
-        } finally {
-            db.close()
         }
     }
 
@@ -73,8 +62,5 @@ class DatabaseHelper(context: Context) :
         private const val DATABASE_NAME = "sample.db"
 
         private const val TAG = "DB_HELPER"
-        private const val SAMPLE_QUERY_CREATE =
-            """CREATE TABLE SAMPLE (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, 
-                NAME TEXT, LAST_NAME TEXT)"""
     }
 }
