@@ -27,16 +27,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-
-        val databaseHelper = DatabaseHelper(this)
-        databaseHelper.execRawQuery(CREATE_QUERY)
-        databaseHelper.execSelectQuery(SELECT_QUERY)
-    }
-
-    companion object {
-        private const val CREATE_QUERY = "CREATE TABLE TEST (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "NAME TEXT, PHONE_NUM TEXT)"
-        private const val SELECT_QUERY = "SELECT * FROM NAME"
     }
 }
 
