@@ -1,6 +1,5 @@
 package com.lab.androidroom
 
-import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,7 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.lab.androidroom.ui.theme.AndroidRoomLabTheme
 
-private lateinit var databaseHelper: SQLiteOpenHelper
+private lateinit var databaseHelper: DatabaseHelper
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-
+        databaseHelper = DatabaseHelper(this)
     }
 }
 
@@ -63,7 +63,7 @@ fun SimpleFilledTextFieldSample() {
 }
 
 fun onButtonClick(text: String) {
-
+    databaseHelper.execRawQuery(text)
 }
 
 @Composable
