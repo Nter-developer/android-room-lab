@@ -1,10 +1,12 @@
 package com.lab.androidroom
 
 import android.os.Bundle
-import android.provider.BaseColumns
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -16,7 +18,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.lab.androidroom.ui.theme.AndroidRoomLabTheme
+
+private lateinit var databaseHelper: DatabaseHelper
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,29 +38,32 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        val databaseHelper = DatabaseHelper(this)
-        databaseHelper.execRawQuery(SAMPLE_QUERY_CREATE)
-        databaseHelper.execRawQuery(SAMPLE_QUERY_INSERT)
-        databaseHelper.execSelectQuery(SAMPLE_QUERY_SELECT)
-    }
-
-    companion object {
-        private const val SAMPLE_QUERY_CREATE =
-            "CREATE TABLE SAMPLE (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, LAST_NAME TEXT)"
-        private const val SAMPLE_QUERY_INSERT = "INSERT INTO SAMPLE (NAME, LAST_NAME) VALUES ('James', 'King')"
-        private const val SAMPLE_QUERY_SELECT = "SELECT * FROM SAMPLE"
+        databaseHelper = DatabaseHelper(this)
     }
 }
 
 @Composable
 fun SimpleFilledTextFieldSample() {
-    var text by remember { mutableStateOf("Hello") }
+    var text by remember { mutableStateOf("Type your query") }
 
-    TextField(
-        value = text,
-        onValueChange = { text = it },
-        label = { Text("Label") }
-    )
+    Column {
+        TextField(
+            value = text,
+            onValueChange = { text = it },
+            label = { Text("Label") }
+        )
+
+        Button(
+            onClick = { onButtonClick(text) },
+            modifier = Modifier.padding(top = 8.dp)
+        ) {
+            Text("Submit")
+        }
+    }
+}
+
+fun onButtonClick(text: String) {
+    databaseHelper.execRawQuery(text)
 }
 
 @Composable
