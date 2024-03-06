@@ -1,10 +1,13 @@
 package com.lab.androidroom
 
+import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
-import android.provider.BaseColumns
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -16,8 +19,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.lab.androidroom.ui.theme.AndroidRoomLabTheme
 
+private lateinit var databaseHelper: SQLiteOpenHelper
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,18 +37,33 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
+
     }
 }
 
 @Composable
 fun SimpleFilledTextFieldSample() {
-    var text by remember { mutableStateOf("Hello") }
+    var text by remember { mutableStateOf("Type your query") }
 
-    TextField(
-        value = text,
-        onValueChange = { text = it },
-        label = { Text("Label") }
-    )
+    Column {
+        TextField(
+            value = text,
+            onValueChange = { text = it },
+            label = { Text("Label") }
+        )
+
+        Button(
+            onClick = { onButtonClick(text) },
+            modifier = Modifier.padding(top = 8.dp)
+        ) {
+            Text("Submit")
+        }
+    }
+}
+
+fun onButtonClick(text: String) {
+
 }
 
 @Composable
